@@ -1,0 +1,8 @@
+xmlDeleteOptionalAttributes.pl README
+
+Please see the inline comments for a detailed explanation of the logic.
+
+The script parses a given XSD file, and an accompanying, conforming XML file. ComplexTypes in the XSD with optional attributes are flagged, and any Elements found in the XML document of those types have their optional attributes deleted.
+
+The files in this repository were created using the following command:
+xmlDeleteOptionalAttributes.pl --xsdIn ./in/gameXml.xsd --xmlIn ./in/gameConfig.xml --outDir ./out
