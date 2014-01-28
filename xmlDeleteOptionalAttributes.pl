@@ -112,7 +112,6 @@ my $parserLibXML = XML::LibXML->new();
 #with an array of optional attribute names.
 if(-e $xmlIn && -e $xsdIn){
 	my $xmlData = $parserLibXML->parse_file($xsdIn);
-	
 	if($xmlData){
 		my %complexTypes;
 		
@@ -121,7 +120,8 @@ if(-e $xmlIn && -e $xsdIn){
 			if($type->hasAttribute("name")){
 				foreach my $childNode ($type->getChildNodes){
 					#find optional attribute nodes
-					if($childNode->nodeType eq XML_ATTRIBUTE_NODE){	
+					if(	$childNode->nodeType eq XML_ELEMENT_NODE &&
+						$childNode->nodeName eq "xs:attribute"){	
 						
 						my $isRequired = 0;
 						if($childNode->hasAttribute("use")){
@@ -129,8 +129,14 @@ if(-e $xmlIn && -e $xsdIn){
 						}
 						
 						if(!$isRequired){
-							if($childNode->hasAttribute("name")){push(@{$complexTypes{$type->getAttribute("name")}},$childNode->getAttribute("name"));}
-							else{print STDERR "ERROR: missing \"name\" attribute for XSD attribute node. EXIT\n";}
+							if($childNode->hasAttribute("name")){
+								push(@{$complexTypes{$type->getAttribute("name")}},$childNode->getAttribute("name"));
+							}
+							else{
+								print STDERR "ERROR: missing \"name\" attribute for XSD attribute node under ".
+											 $type->getAttribute("name").". EXIT\n";
+								exit 1;
+							}
 						}
 					}
 				}
@@ -163,7 +169,11 @@ if(-e $xmlIn && -e $xsdIn){
 			if($xmlData){						
 				foreach my $elementPath (keys %elementNames){
 					my $elementType = $elementNames{$elementPath};
+					#DEBUG
+					#print STDOUT "Processing attributes of $elementPath($elementType):\n";
 					foreach my $attributeName (@{$complexTypes{$elementType}}){
+						#DEBUG
+						#print STDOUT "$attributeName\n";
 						foreach my $elementInstance ($xmlData->findnodes($elementPath)){
 							if($elementInstance->hasAttribute($attributeName)){$elementInstance->removeAttribute($attributeName);}
 						}

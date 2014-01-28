@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gameConfig xmlns:x0="http://www.w3.org/2001/XMLSchema">
-	<actorType uid="0">
+	<actorType>
 		<name>OBJ_PLAYER</name>
 		<health>20</health>
 		<attack>20</attack>
@@ -16,7 +16,7 @@
 			</topRight>
 		</levelCollisionBounds>
 	</actorType>
-	<actorType uid="1">
+	<actorType>
 		<name>OBJ_VIP</name>
 		<health>50</health>
 		<attack>0</attack>
@@ -32,7 +32,7 @@
 			</topRight>
 		</levelCollisionBounds>
 	</actorType>
-	<actorType uid="2">
+	<actorType>
 		<name>OBJ_ENEMY_S</name>
 		<health>5</health>
 		<attack>5</attack>
@@ -48,7 +48,7 @@
 			</topRight>
 		</levelCollisionBounds>
 	</actorType>
-	<actorType uid="3">
+	<actorType>
 		<name>OBJ_ENEMY_M</name>
 		<health>10</health>
 		<attack>10</attack>
@@ -64,7 +64,7 @@
 			</topRight>
 		</levelCollisionBounds>
 	</actorType>
-	<actorType uid="4">
+	<actorType>
 		<name>OBJ_ENEMY_L</name>
 		<health>30</health>
 		<attack>30</attack>
