@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 #Copyright (c) 2013, Stargazy Studios
 #All Rights Reserved
@@ -25,17 +25,20 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#xmlToHeader searches an input XSD file for ComplexTypes containing optional attributes.
-#Any Elements found in the XML document of those types have their optional attributes 
-#deleted.
+#An optional attribute in the schema is one that does not itself have the attribute pair: 
+#
+#	use="isRequired"
+#
+#xmlDeleteOptionalAttributes searches an input XSD file for ComplexTypes containing 
+#optional attributes. Any Elements found in the XML document of those types have their 
+#optional attributes deleted.
 
+use warnings;
 use strict;
 use Getopt::Long;
 use XML::LibXML;
 use File::Basename;
 use Data::Dumper;
-
-#TODO Start Here: why is "uid" attribute not being identified and deleted?
 										
 sub checkTypeAndExpandElement{
 	my ($element,$elementPath,$xmlData,$complexTypesHashRef,$elementNamesHashRef) = @_;
